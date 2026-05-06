@@ -1,0 +1,42 @@
+@startuml
+class Product {
+  - code: String
+  - name: String
+  - price: double
+  - discountPrice: double
+  + getPrice(): double
+  + getDiscountPrice(): double
+  + setDiscountPrice(double): void
+}
+
+class Cart {
+  - products: List<Product>
+  + addProduct(Product): void
+  + getTotalSum(): double
+  + applyPromotion(ICartPromotion): void
+  + getCheapest(): Product
+  + sortProducts(Comparator<Product>): void
+}
+
+interface ICartPromotion {
+  + apply(Cart): void
+}
+
+class ValuePromotion {
+  + apply(Cart): void
+}
+
+class Buy2Get1FreePromotion {
+  + apply(Cart): void
+}
+
+class FreeMugPromotion {
+  + apply(Cart): void
+}
+
+Cart "1" o-- "*" Product : contains
+ICartPromotion <|.. ValuePromotion
+ICartPromotion <|.. Buy2Get1FreePromotion
+ICartPromotion <|.. FreeMugPromotion
+Cart .> ICartPromotion : uses
+@enduml
