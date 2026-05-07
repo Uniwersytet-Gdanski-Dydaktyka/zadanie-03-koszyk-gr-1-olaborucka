@@ -1,10 +1,10 @@
 public class Product {
-    // Pola oznaczamy jako final - są niemutowalne (immutable)
+    // niemutowalne
     private final String code;
     private final String name;
     private final double price;
 
-    // Tylko to pole jest mutowalne, bo zmienia się pod wpływem promocji
+    // mutowalne -promocje
     private double discountPrice;
 
     public Product(String code, String name, double price) {
@@ -19,12 +19,12 @@ public class Product {
     public double getPrice() { return price; }
     public double getDiscountPrice() { return discountPrice; }
 
-    // Zostawiamy TYLKO ten setter
+
     public void setDiscountPrice(double discountPrice) {
         this.discountPrice = discountPrice;
     }
 
-    // Metoda pomocnicza do resetowania ceny (np. przy sprawdzaniu innych promocji)
+    // Metoda pomocnicza do resetowania ceny
     public void resetDiscount() {
         this.discountPrice = this.price;
     }

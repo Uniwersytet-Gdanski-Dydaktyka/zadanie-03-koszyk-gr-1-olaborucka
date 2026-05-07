@@ -4,8 +4,10 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class Cart {
+    // lista obiektow produktow
     private List<Product> products;
 
+    // konstruktor
     public Cart() {
         this.products = new ArrayList<>();
     }
@@ -34,8 +36,11 @@ public class Cart {
     public void applyBestPromotions(List<ICartPromotion> promotions) {
         if (promotions == null || promotions.isEmpty()) return;
 
+        // lista możliwych układów promocyjnych
         List<List<ICartPromotion>> allPermutations = generatePermutations(promotions);
+        //najlepsza
         List<ICartPromotion> bestOrder = null;
+        // najwieksza mozliwa watosc koszyka do porownywania
         double lowestTotal = Double.MAX_VALUE;
 
         // Testujemy każdą możliwą kolejność nałożenia promocji
@@ -75,6 +80,7 @@ public class Cart {
         }
         ICartPromotion firstElement = original.remove(0);
         List<List<ICartPromotion>> permutations = generatePermutations(original);
+        // permutacje wyliczone przed chwila + usuniety element
         for (List<ICartPromotion> smallerPermutated : permutations) {
             for (int index = 0; index <= smallerPermutated.size(); index++) {
                 List<ICartPromotion> temp = new ArrayList<>(smallerPermutated);
@@ -103,6 +109,7 @@ public class Cart {
         return products.stream().sorted(Comparator.comparing(Product::getPrice).reversed()).limit(n).collect(Collectors.toList());
     }
 
+    // przyjmuje instrikcje jak posortowac koszyk
     public void sortProducts(Comparator<Product> comparator) {
         products.sort(comparator);
     }
